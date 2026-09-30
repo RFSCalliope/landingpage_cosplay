@@ -1,1046 +1,571 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CosCraft Studio - Workshop Custom Prop, Kostum & Rental Cosplay</title>
-    
-    <!-- Bootstrap 5.3 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Google Fonts Inter & Orbitron -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
-
-    <!-- Custom Styling Theme (Cyber-Cosplay Dark Modern) -->
-    <style>
-        :root {
-            --bg-dark: #0f111a;
-            --bg-card: #181b29;
-            --bg-card-hover: #222638;
-            --accent-neon-violet: #8a2be2;
-            --accent-neon-cyan: #00f0ff;
-            --accent-pink: #ff2a85;
-            --text-main: #ffffff;
-            --text-muted: #cbd5e1;
-            --text-sublabel: #e2e8f0;
-            --border-glow: rgba(0, 240, 255, 0.2);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        .font-heading {
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .text-cyan {
-            color: var(--accent-neon-cyan) !important;
-        }
-
-        .text-violet {
-            color: var(--accent-neon-violet) !important;
-        }
-
-        .text-pink {
-            color: var(--accent-pink) !important;
-        }
-
-        /* Utility class untuk teks deskripsi & label agar kontras tinggi */
-        .text-muted, .text-subtext {
-            color: var(--text-muted) !important;
-        }
-
-        .bg-card-custom {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(0, 240, 255, 0.25);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .bg-card-custom:hover {
-            border-color: var(--accent-neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
-            transform: translateY(-5px);
-        }
-
-        /* Form Controls & Inputs Contrast Fix */
-        .form-control-custom, .form-select-custom {
-            background-color: #1e2235;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #ffffff;
-            border-radius: 8px;
-            padding: 12px;
-        }
-
-        .form-control-custom::placeholder {
-            color: #94a3b8 !important;
-            opacity: 1;
-        }
-
-        .form-control-custom:focus, .form-select-custom:focus {
-            background-color: #252a42;
-            border-color: var(--accent-neon-cyan);
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
-        }
-
-        .form-label-custom {
-            color: #f8fafc !important;
-            font-weight: 600;
-            font-size: 0.875rem;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        /* Buttons Styling */
-        .btn-neon-cyan {
-            background: linear-gradient(135deg, var(--accent-neon-cyan), #0099ff);
-            color: #000;
-            font-weight: 700;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 28px;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .btn-neon-cyan:hover {
-            background: linear-gradient(135deg, #0099ff, var(--accent-neon-cyan));
-            color: #000;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
-            transform: scale(1.03);
-        }
-
-        .btn-outline-neon {
-            border: 2px solid var(--accent-neon-violet);
-            color: var(--text-main);
-            font-weight: 600;
-            border-radius: 8px;
-            padding: 10px 24px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline-neon:hover {
-            background-color: var(--accent-neon-violet);
-            color: #fff;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-            transform: scale(1.03);
-        }
-
-        /* Navbar Customization */
-        .navbar-custom {
-            background-color: rgba(15, 17, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .nav-link {
-            color: #cbd5e1 !important;
-            font-weight: 500;
-            margin: 0 8px;
-            transition: color 0.2s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--accent-neon-cyan) !important;
-        }
-
-        /* Hero Section Gradient Background */
-        .hero-section {
-            position: relative;
-            padding: 140px 0 90px 0;
-            background: radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.25) 0%, transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.2) 0%, transparent 50%);
-        }
-
-        .badge-custom {
-            background: rgba(0, 240, 255, 0.15);
-            border: 1px solid var(--accent-neon-cyan);
-            color: var(--accent-neon-cyan);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* Feature Icons Box */
-        .feature-icon-box {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(0, 240, 255, 0.3));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--accent-neon-cyan);
-            margin-bottom: 20px;
-            border: 1px solid var(--border-glow);
-        }
-
-        /* Gallery Filter Buttons */
-        .portfolio-filter .btn {
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            margin: 4px;
-            padding: 6px 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .portfolio-filter .btn.active, .portfolio-filter .btn:hover {
-            background-color: var(--accent-neon-violet);
-            color: #fff;
-            border-color: var(--accent-neon-violet);
-            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);
-        }
-
-        /* Timeline Step Process */
-        .step-number {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-neon-cyan), var(--accent-neon-violet));
-            color: #000;
-            font-weight: 800;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-        }
-
-        /* Calculator Card Styling */
-        .calc-card {
-            background: linear-gradient(145deg, #181b29, #131520);
-            border: 1px solid var(--accent-neon-violet);
-            border-radius: 16px;
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.25);
-        }
-
-        /* Accordion Customization */
-        .accordion-item {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-bottom: 12px;
-            border-radius: 8px !important;
-            overflow: hidden;
-        }
-
-        .accordion-button {
-            background-color: var(--bg-card);
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .accordion-button:not(.collapsed) {
-            background-color: var(--bg-card-hover);
-            color: var(--accent-neon-cyan);
-            box-shadow: none;
-        }
-
-        .accordion-button::after {
-            filter: invert(1);
-        }
-
-        /* Floating WhatsApp Button */
-        .float-wa {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: #25d366;
-            color: #fff;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .float-wa:hover {
-            color: #fff;
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.8);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CosCraft Studio - Workshop Custom Prop & Costume Cosplay UMKM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom py-3">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                <i class="fa-solid fa-wand-magic-sparkles text-cyan fs-3"></i>
-                <span class="font-heading fw-bold fs-4 tracking-wider">COSCRAFT<span class="text-cyan">.STUDIO</span></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portofolio">Portofolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#keunggulan">Keunggulan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#alur">Alur Order</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#kalkulator">Quick Quote</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
-                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a href="https://wa.me/6281234567890?text=Halo%20CosCraft%20Studio,%20saya%20ingin%20konsultasi%20pembuatan%20prop/kostum%20cosplay!" target="_blank" class="btn btn-neon-cyan btn-sm text-uppercase">
-                            <i class="fa-brands fa-whatsapp me-1 fs-6"></i> Tanya Custom
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section id="beranda" class="hero-section d-flex align-items-center">
-        <div class="container">
-            <div class="row align-items-center gy-5">
-                <div class="col-lg-6">
-                    <div class="badge-custom mb-3 d-inline-block">
-                        <i class="fa-solid fa-fire me-1"></i> WORKSHOP CUSTOMLAB & PROP MAKER UMKM
-                    </div>
-                    <h1 class="display-4 font-heading fw-extrabold text-white mb-3 lh-sm">
-                        Bawa Karakter Impianmu Menjadi <span class="text-cyan">Nyata & Presisi</span>
-                    </h1>
-                    <p class="lead text-subtext mb-4">
-                        Spesialis pembuatan prop senjata, armor High-Density EVA Foam, jahit kostum kustom, serta persewaan cosplay. Hasil garapan rapi, ringan, kokoh, dan event-ready.
-                    </p>
-                    
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        <span class="badge bg-dark border border-secondary text-light px-3 py-2"><i class="fa-solid fa-check text-cyan me-1"></i> Custom Design 1:1</span>
-                        <span class="badge bg-dark border border-secondary text-light px-3 py-2"><i class="fa-solid fa-check text-cyan me-1"></i> EVA Foam & 3D Print</span>
-                        <span class="badge bg-dark border border-secondary text-light px-3 py-2"><i class="fa-solid fa-check text-cyan me-1"></i> Safety for Convention</span>
-                    </div>
-
-                    <div class="d-flex flex-sm-row flex-column gap-3">
-                        <a href="#portofolio" class="btn btn-neon-cyan fs-6">
-                            <i class="fa-solid fa-images me-2"></i> Lihat Katalog Karya
-                        </a>
-                        <a href="https://wa.me/6281234567890?text=Halo%20CosCraft,%20mau%20tanya-tanya%20estimasi%20kostum" target="_blank" class="btn btn-outline-neon fs-6">
-                            <i class="fa-brands fa-whatsapp me-2"></i> Chat WA Studio
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 text-center">
-                    <div class="position-relative d-inline-block">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_3Se5KlufeKj4_6Qw0TPvDfgwiAt6uKLtDnVJtMC6Iw&s=10" 
-                             alt="Cosplay Prop Crafting Workshop" 
-                             class="img-fluid rounded-4 shadow-lg border border-secondary"
-                             onerror="this.src='https://placehold.co/600x450/181b29/00f0ff?text=CosCraft+Studio+Workshop'" />
-                        <div class="position-absolute bottom-0 start-0 translate-middle-y bg-card-custom p-3 m-3 text-start d-none d-md-block shadow-lg" style="max-width: 250px; border-left: 4px solid var(--accent-neon-cyan);">
-                            <div class="d-flex align-items-center gap-2 mb-1">
-                                <i class="fa-solid fa-award text-cyan fs-4"></i>
-                                <span class="fw-bold fs-6">100+ Karya Selesai</span>
-                            </div>
-                            <small class="text-muted">Dipercaya cosplayer & event enthusiast.</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LAYANAN & PRODUK UTAMA -->
-    <section id="layanan" class="py-5">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h6 class="text-violet font-heading text-uppercase">Layanan Spesialis</h6>
-                <h2 class="font-heading fw-bold">Solusi Lengkap Kebutuhan Cosplay</h2>
-                <p class="text-muted mx-auto" style="max-width: 600px;">Kami melayani pembuatan kustom dari nol, jahit kostum presisi, hingga perbaikan prop favoritmu.</p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Service 1 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bg-card-custom h-100 overflow-hidden d-flex flex-column">
-                        <img src="https://s.alicdn.com/@sc04/kf/Ha6d94afa3a824944834df8232491bdb1u.jpg" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Prop & Armor Crafting" onerror="this.src='https://placehold.co/400x250/181b29/00f0ff?text=Armor+%26+Prop'" />
-                        <div class="p-4 d-flex flex-column flex-grow-1">
-                            <h5 class="fw-bold text-cyan mb-2">Prop & Armor Crafting</h5>
-                            <p class="text-muted small flex-grow-1">Senjata, Scythe, Helm, & Armor set berbahan Busa ATI High-Density, 3D Print PLA+, dengan teknik *airbrush weathering* realistis.</p>
-                            <a href="#kalkulator" class="btn btn-sm btn-outline-neon mt-3">Hitung Perkiraan Cost</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bg-card-custom h-100 overflow-hidden d-flex flex-column">
-                        <img src="https://i.ebayimg.com/images/g/aEcAAOSwS7Zj4uHa/s-l1200.png" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Tailoring Kostum" onerror="this.src='https://placehold.co/400x250/181b29/00f0ff?text=Jahit+Kostum+Custom'" />
-                        <div class="p-4 d-flex flex-column flex-grow-1">
-                            <h5 class="fw-bold text-cyan mb-2">Jahit Kostum Custom</h5>
-                            <p class="text-muted small flex-grow-1">Jahit baju anime, game, atau original character sesuai ukuran badan badan secara presisi (custom sizing) menggunakan kain premium.</p>
-                            <a href="https://wa.me/6281234567890?text=Halo%20CosCraft,%20mau%20konsultasi%20jahit%20kostum" target="_blank" class="btn btn-sm btn-outline-neon mt-3">Konsultasi Ukuran</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bg-card-custom h-100 overflow-hidden d-flex flex-column">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_NNdzcp_YEZlIhxpnh4rvNOiAOhZhXxnD8E6-R4hjj3MgH4iXjc9qIzg&s=10" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Persewaan & Wig Styling" onerror="this.src='https://placehold.co/400x250/181b29/00f0ff?text=Sewa+%26+Styling+Wig'" />
-                        <div class="p-4 d-flex flex-column flex-grow-1">
-                            <h5 class="fw-bold text-cyan mb-2">Persewaan & Wig Styling</h5>
-                            <p class="text-muted small flex-grow-1">Sewa kostum & prop ready stock hemat untuk event, serta jasa styling/crimping wig karakter spike/anime kompleks.</p>
-                            <a href="https://wa.me/6281234567890?text=Halo%20CosCraft,%20minta%20katalog%20sewa%20ready%20stock" target="_blank" class="btn btn-sm btn-outline-neon mt-3">Katalog Rent</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 4 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bg-card-custom h-100 overflow-hidden d-flex flex-column">
-                        <img src="https://preview.redd.it/help-advice-on-painting-and-strengthening-prop-v0-iigx3o9tfcq71.jpg?width=1080&crop=smart&auto=webp&s=8521e54cf26523e2a486fb9782f754e43b94e532" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Repair & Repaint" onerror="this.src='https://placehold.co/400x250/181b29/00f0ff?text=Repair+%26+Renovasi'" />
-                        <div class="p-4 d-flex flex-column flex-grow-1">
-                            <h5 class="fw-bold text-cyan mb-2">Repair & Repaint Prop</h5>
-                            <p class="text-muted small flex-grow-1">Restorasi prop kesayangan yang patah, lecet, atau pudar. Kami perbaiki dan repaint kembali kinclong seperti baru.</p>
-                            <a href="https://wa.me/6281234567890?text=Halo%20CosCraft,%20saya%20mau%20repair%20prop" target="_blank" class="btn btn-sm btn-outline-neon mt-3">Konsultasi Repair</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTOFOLIO / GALERI SHOWCASE -->
-    <section id="portofolio" class="py-5 bg-black bg-opacity-40">
-        <div class="container py-4">
-            <div class="text-center mb-4">
-                <h6 class="text-cyan font-heading text-uppercase">Showroom Karya</h6>
-                <h2 class="font-heading fw-bold">Portofolio Kustom CosCraft</h2>
-                <p class="text-muted">Hasil garapan workshop kami untuk berbagai kompetisi, event anime, & photoshoot.</p>
-            </div>
-
-            <!-- Filter Buttons -->
-            <div class="d-flex justify-content-center flex-wrap portfolio-filter mb-4">
-                <button class="btn active" onclick="filterGallery('all', this)">Semua Karya</button>
-                <button class="btn" onclick="filterGallery('senjata', this)">Prop Senjata</button>
-                <button class="btn" onclick="filterGallery('armor', this)">Armor Set</button>
-                <button class="btn" onclick="filterGallery('kostum', this)">Jahit Kostum</button>
-                <button class="btn" onclick="filterGallery('helm', this)">Helm & Masker</button>
-            </div>
-
-            <!-- Gallery Grid -->
-            <div class="row g-4" id="galleryGrid">
-                <!-- Item 1 -->
-                <div class="col-md-6 col-lg-4 gallery-item" data-category="senjata">
-                    <div class="bg-card-custom overflow-hidden rounded-3 h-100">
-                        <img src="https://minikatana.com/cdn/shop/files/5_2_900x.jpg?v=1739387983" class="img-fluid w-100" style="height: 240px; object-fit: cover; cursor: pointer;" alt="Cyber Greatsword" onclick="openPreviewModal(this.src, 'Cybernetic Greatsword', 'EVA Foam + LED Strip Neon (Panjang 140cm, Knockdown 2 Part)')" onerror="this.src='https://placehold.co/600x400/181b29/00f0ff?text=Cyber+Greatsword'" />
-                        <div class="p-3">
-                            <span class="badge bg-violet text-white mb-2">EVA Foam + LED</span>
-                            <h5 class="fw-bold fs-6 mb-1">Cybernetic Greatsword</h5>
-                            <p class="text-muted small mb-0">Panjang 140cm, dapat dibongkar pasang (knockdown) & sistem lampu LED interaktif.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="col-md-6 col-lg-4 gallery-item" data-category="helm">
-                    <div class="bg-card-custom overflow-hidden rounded-3 h-100">
-                        <img src="https://www.hypebrother.com/images/product-mecha-helmet-t1.jpg" class="img-fluid w-100" style="height: 240px; object-fit: cover; cursor: pointer;" alt="Mecha Helmet" onclick="openPreviewModal(this.src, 'Mecha Pilot Helmet', '3D Print PLA+ Finishing Metallic Gloss & Optical Visor')" onerror="this.src='https://placehold.co/600x400/181b29/00f0ff?text=Mecha+Helmet'" />
-                        <div class="p-3">
-                            <span class="badge bg-info text-dark mb-2">3D Print + Visor</span>
-                            <h5 class="fw-bold fs-6 mb-1">Mecha Pilot Helmet</h5>
-                            <p class="text-muted small mb-0">Finishing metallic gloss, ventilasi pernapasan ganda, dan sirkulasi udara nyaman.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="col-md-6 col-lg-4 gallery-item" data-category="armor">
-                    <div class="bg-card-custom overflow-hidden rounded-3 h-100">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB1cbBwJsBzpSvvuaacOhp6AbngxTMlPHZk3BTHy2YTtsQvWkpUP2Ez0w&s=10" class="img-fluid w-100" style="height: 240px; object-fit: cover; cursor: pointer;" alt="Knight Armor" onclick="openPreviewModal(this.src, 'Dark Knight Pauldron & Chestplate', 'Full Set Busa Ati High-Density 8mm Weathering Painting')" onerror="this.src='https://placehold.co/600x400/181b29/00f0ff?text=Full+Set+Armor'" />
-                        <div class="p-3">
-                            <span class="badge bg-danger mb-2">Full Set Busa Ati</span>
-                            <h5 class="fw-bold fs-6 mb-1">Dark Knight Chest & Pauldron</h5>
-                            <p class="text-muted small mb-0">Tekstur battle damage realistis, sangat ringan dipakai seharian saat cosplay walk.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="col-md-6 col-lg-4 gallery-item" data-category="senjata">
-                    <div class="bg-card-custom overflow-hidden rounded-3 h-100">
-                        <img src="https://lonestarcosplay.com/cdn/shop/files/il_fullxfull.6766730971_aih5.jpg?v=1744867761" class="img-fluid w-100" style="height: 240px; object-fit: cover; cursor: pointer;" alt="Reaper Scythe" onclick="openPreviewModal(this.src, 'Reaper Scythe 200cm', 'Rangka PVC Internal + Busa Ati Detachable 3 bagian')" onerror="this.src='https://placehold.co/600x400/181b29/00f0ff?text=Reaper+Scythe'" />
-                        <div class="p-3">
-                            <span class="badge bg-warning text-dark mb-2">Knockdown Detachable</span>
-                            <h5 class="fw-bold fs-6 mb-1">Reaper Scythe 200cm</h5>
-                            <p class="text-muted small mb-0">Dapat dilepas menjadi 3 bagian ringkas untuk kemudahan transportasi luar kota.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 5 -->
-                <div class="col-md-6 col-lg-4 gallery-item" data-category="kostum">
-                    <div class="bg-card-custom overflow-hidden rounded-3 h-100">
-                        <img src="https://i.ebayimg.com/images/g/DKUAAOSwzaJX43uA/s-l1200.jpg" class="img-fluid w-100" style="height: 240px; object-fit: cover; cursor: pointer;" alt="Kimono Cosplay" onclick="openPreviewModal(this.src, 'Kimono Pattern Custom', 'Kain Satin Bridal + Bordir Komputer Presisi 100% Sesuai Anime')" onerror="this.src='https://placehold.co/600x400/181b29/00f0ff?text=Kimono+Custom'" />
-                        <div class="p-3">
-                            <span class="badge bg-primary mb-2">Jahit Tailor</span>
-                            <h5 class="fw-bold fs-6 mb-1">Fantasy Kimono & Haori</h5>
-                            <p class="text-muted small mb-0">Bordir detail pada bagian punggung dan furing bagian dalam yang adem.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 6 -->
-                <div class="col-md-6 col-lg-4 gallery-item" data-category="helm">
-                    <div class="bg-card-custom overflow-hidden rounded-3 h-100">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvMm8qXIt8-qnJQg9KGoMoEA5vcElLT7bH_eIe7JGnBCWvf1Ds5yw10hM&s=10" class="img-fluid w-100" style="height: 240px; object-fit: cover; cursor: pointer;" alt="Cyber Oni Mask" onclick="openPreviewModal(this.src, 'Cyberpunk Oni Mask', 'Resin Cast + Tali Neoprene Adjustable')" onerror="this.src='https://placehold.co/600x400/181b29/00f0ff?text=Oni+Mask'" />
-                        <div class="p-3">
-                            <span class="badge bg-success mb-2">Resin Cast</span>
-                            <h5 class="fw-bold fs-6 mb-1">Cyberpunk Oni Mask</h5>
-                            <p class="text-muted small mb-0">Detail taring tajam dengan tali strap neoprene yang adjustable dan empuk.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MENGAPA MEMILIH KAMI (KEUNGGULAN) -->
-    <section id="keunggulan" class="py-5">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h6 class="text-cyan font-heading text-uppercase tracking-wider">Keunggulan Workshop</h6>
-                <h2 class="font-heading fw-bold">Mengapa Memilih CosCraft Studio?</h2>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100">
-                        <div class="feature-icon-box">
-                            <i class="fa-solid fa-bullseye"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Presisi High-Grade</h5>
-                        <p class="text-muted small mb-0">Riset proporsi 1:1 dari reference sheet official anime/game agar karakter tampil identik.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100">
-                        <div class="feature-icon-box">
-                            <i class="fa-solid fa-feather-pointed"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Bahan Ringan & Kokoh</h5>
-                        <p class="text-muted small mb-0">Kombinasi High-Density EVA Foam & tulang PVC agar tidak pegal dipakai saat event seharian.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100">
-                        <div class="feature-icon-box">
-                            <i class="fa-solid fa-box-archive"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Packing Aman Kirim LK</h5>
-                        <p class="text-muted small mb-0">Pengiriman luar kota/luar pulau menggunakan bubble wrap ganda, kardus tebal, atau peti kayu aman.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100">
-                        <div class="feature-icon-box">
-                            <i class="fa-solid fa-comments"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Free Konsultasi Design</h5>
-                        <p class="text-muted small mb-0">Diskusi gratis pemilihan bahan, skala ukuran badan, hingga menyesuaikan budget calon pemesan.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ALUR PEMESANAN (STEP-BY-STEP) -->
-    <section id="alur" class="py-5 bg-black bg-opacity-30">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h6 class="text-violet font-heading text-uppercase">Prosedur Kerja</h6>
-                <h2 class="font-heading fw-bold">4 Langkah Mudah Pesan Custom</h2>
-            </div>
-
-            <div class="row g-4 text-center">
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100 d-flex flex-column align-items-center">
-                        <div class="step-number">1</div>
-                        <h5 class="fw-bold fs-6">Konsultasi & Quote</h5>
-                        <p class="text-muted small mb-0">Kirim gambar referensi karakter, tentukan ukuran & deadline event untuk hitung estimasi harga.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100 d-flex flex-column align-items-center">
-                        <div class="step-number">2</div>
-                        <h5 class="fw-bold fs-6">DP & Prototyping</h5>
-                        <p class="text-muted small mb-0">Pembayaran DP 50% untuk mulai pembelian material, pembuatan pola (patterning), & pengerjaan.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100 d-flex flex-column align-items-center">
-                        <div class="step-number">3</div>
-                        <h5 class="fw-bold fs-6">Progress & Finishing</h5>
-                        <p class="text-muted small mb-0">Menerima update foto/video berkala proses crafting, dilanjutkan painting & detail akhir.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="bg-card-custom p-4 h-100 d-flex flex-column align-items-center">
-                        <div class="step-number">4</div>
-                        <h5 class="fw-bold fs-6">Pelunasan & Kirim</h5>
-                        <p class="text-muted small mb-0">Setelah lolos approval final via foto/video, pelunasan dilakukan lalu barang siap dikirim.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FORM ESTIMASI BIAYA (QUICK QUOTE CALCULATOR) -->
-    <section id="kalkulator" class="py-5">
-        <div class="container py-4">
-            <div class="row align-items-center gy-5">
-                <div class="col-lg-5">
-                    <h6 class="text-cyan font-heading text-uppercase">Kalkulator Quick Quote</h6>
-                    <h2 class="font-heading fw-bold mb-3">Hitung Perkiraan Biaya Prop Kamu!</h2>
-                    <p class="text-muted">
-                        Fitur kalkulator interaktif untuk memberikan gambaran kisaran biaya pengerjaan kustom. Hasil kalkulasi bisa langsung kamu teruskan ke WhatsApp kami untuk didiskusikan lebih detail.
-                    </p>
-                    <ul class="list-unstyled text-muted space-y-2">
-                        <li class="mb-2"><i class="fa-solid fa-circle-check text-cyan me-2"></i> Transparansi estimasi biaya awal</li>
-                        <li class="mb-2"><i class="fa-solid fa-circle-check text-cyan me-2"></i> Pilihan tingkat kerumitan fleksibel</li>
-                        <li class="mb-2"><i class="fa-solid fa-circle-check text-cyan me-2"></i> Bebas konsultasi lanjutan tanpa komitmen</li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-7">
-                    <div class="calc-card p-4 p-md-5">
-                        <h4 class="font-heading text-center mb-4 text-white"><i class="fa-solid fa-sliders text-cyan me-2"></i> Estimator Cost Custom</h4>
-                        <form id="propQuoteForm">
-                            <div class="row g-3">
-                                <!-- Jenis Prop -->
-                                <div class="col-md-6">
-                                    <label class="form-label form-label-custom">JENIS ORDER / CATEGORY</label>
-                                    <select class="form-select form-select-custom" id="categorySelect" onchange="calculatePrice()">
-                                        <option value="weapon" data-base="350000">Senjata / Weapon (Pedang, Bow, Wand)</option>
-                                        <option value="helmet" data-base="450000">Helm / Masker Full Head</option>
-                                        <option value="armor" data-base="850000">Armor Set (Chest/Pauldron/Full)</option>
-                                        <option value="costume" data-base="500000">Jahit Kostum Custom (Set Baju)</option>
-                                    </select>
-                                </div>
-
-                                <!-- Detail & Kesulitan -->
-                                <div class="col-md-6">
-                                    <label class="form-label form-label-custom">TINGKAT KERUMITAN DETAIL</label>
-                                    <select class="form-select form-select-custom" id="detailSelect" onchange="calculatePrice()">
-                                        <option value="1.0">Standar (Bentuk dasar & sedikit ukiran)</option>
-                                        <option value="1.4" selected>Sedang (Weathering paint, banyak layer)</option>
-                                        <option value="1.9">Tinggi (Ukiran rinci, LED, Mech Mechanism)</option>
-                                    </select>
-                                </div>
-
-                                <!-- Dimensi Ukuran -->
-                                <div class="col-md-6">
-                                    <label class="form-label form-label-custom">ESTIMASI UKURAN (CM)</label>
-                                    <input type="number" class="form-control form-control-custom" id="sizeInput" value="100" min="10" max="300" oninput="calculatePrice()">
-                                </div>
-
-                                <!-- Kecepatan Pengerjaan -->
-                                <div class="col-md-6">
-                                    <label class="form-label form-label-custom">DURASI PENGERJAAN</label>
-                                    <select class="form-select form-select-custom" id="speedSelect" onchange="calculatePrice()">
-                                        <option value="1.0">Reguler (2 - 3 Minggu)</option>
-                                        <option value="1.3">Express Event (7 - 10 Hari)</option>
-                                    </select>
-                                </div>
-
-                                <!-- Fitur Tambahan Checkbox -->
-                                <div class="col-12 mt-3">
-                                    <label class="form-label form-label-custom d-block">ADD-ON FITUR (OPTIONAL)</label>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="checkLED" value="150000" onchange="calculatePrice()">
-                                        <label class="form-check-label text-light small" for="checkLED">Lampu LED (+Rp 150rb)</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="checkDetachable" value="100000" onchange="calculatePrice()">
-                                        <label class="form-check-label text-light small" for="checkDetachable">Bisa Bongkar Pasang / Knockdown (+Rp 100rb)</label>
-                                    </div>
-                                </div>
-
-                                <!-- Result Box -->
-                                <div class="col-12 mt-4">
-                                    <div class="p-3 rounded-3 text-center border border-secondary" style="background-color: #0b0d14;">
-                                        <span class="text-muted d-block small">ESTIMASI BIAYA AWAL</span>
-                                        <h2 class="font-heading text-cyan my-1" id="totalPriceDisplay">Rp 590.000</h2>
-                                        <small class="text-muted fs-7">*Harga final dikonfirmasi setelah analisis gambar referensi.</small>
-                                    </div>
-                                </div>
-
-                                <!-- WA Order Button -->
-                                <div class="col-12 mt-3">
-                                    <button type="button" class="btn btn-neon-cyan w-100 py-3" onclick="sendQuoteToWA()">
-                                        <i class="fa-brands fa-whatsapp fs-5 me-2"></i> Kirim Spesifikasi Ini ke WhatsApp
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONI PELANGGAN -->
-    <section class="py-5 bg-black bg-opacity-30">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h6 class="text-cyan font-heading text-uppercase">Ulasan Komunitas</h6>
-                <h2 class="font-heading fw-bold">Apa Kata Para Cosplayer?</h2>
-            </div>
-
-            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="bg-card-custom p-4 p-md-5 text-center position-relative">
-                                    <div class="text-warning mb-3">
-                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <p class="fs-5 fst-italic text-light mb-4">"Prop pedang pesanan saya detail banget weathering paint-nya! Pas dipakai event Comic Con di Jakarta sama sekali gak berat. Mantap banget CosCraft Studio!"</p>
-                                    <h6 class="fw-bold mb-0 text-cyan">Rian "Kuro" D.</h6>
-                                    <small class="text-muted">Cosplayer - Surabaya</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="bg-card-custom p-4 p-md-5 text-center position-relative">
-                                    <div class="text-warning mb-3">
-                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <p class="fs-5 fst-italic text-light mb-4">"Pengerjaan express 1 minggu selesai tepat sebelum jadwal photoshoot. Jahitan kostum pas banget di badan tanpa perlu alter ulang."</p>
-                                    <h6 class="fw-bold mb-0 text-cyan">Sita A.</h6>
-                                    <small class="text-muted">Cosplayer - Bandung</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="bg-card-custom p-4 p-md-5 text-center position-relative">
-                                    <div class="text-warning mb-3">
-                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <p class="fs-5 fst-italic text-light mb-4">"Sangat recommended! Packing kayu pengeriman luar pulay sangat aman. Prop scythe 2 meter saya tiba tanpa cacat sedikitpun."</p>
-                                    <h6 class="fw-bold mb-0 text-cyan">Bagas "Zero" P.</h6>
-                                    <small class="text-muted">Cosplayer - Medan</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ ACCORDION -->
-    <section id="faq" class="py-5">
-        <div class="container py-4">
-            <div class="row gy-5">
-                <div class="col-lg-5">
-                    <h6 class="text-violet font-heading text-uppercase">Pertanyaan Umum</h6>
-                    <h2 class="font-heading fw-bold mb-3">Frequently Asked Questions</h2>
-                    <p class="text-muted">Punya pertanyaan seputar durasi pengerjaan, keamanan pengiriman, atau mekanisme pembayaran? Temukan jawabannya di sini.</p>
-                    <a href="https://wa.me/6281234567890?text=Halo%20CosCraft,%20ada%20hal%20lain%20yang%20ingin%20saya%20tanyakan" target="_blank" class="btn btn-outline-neon btn-sm mt-2">
-                        <i class="fa-brands fa-whatsapp me-2"></i> Tanya CS Kami
-                    </a>
-                </div>
-
-                <div class="col-lg-7">
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                    Berapa lama estimasi pengerjaan custom prop/kostum?
-                                </button>
-                            </h2>
-                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted small">
-                                    Waktu pengerjaan standar berkisar antara 2 hingga 3 minggu tergantung antrean workshop dan tingkat kerumitan desain. Kami juga menyediakan opsi **Express Service** untuk selesai dalam 7–10 hari untuk event mendadak.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                    Apakah prop aman dikirim ke luar kota / luar pulau?
-                                </button>
-                            </h2>
-                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted small">
-                                    Sangat aman! Setiap produk dibungkus menggunakan bubble wrap tebal, kardus ganda, atau opsi peti kayu. Untuk prop besar (di atas 120cm), kami merancangnya dengan sistem **knockdown** (bisa dibongkar-pasang) agar hemat ongkir & aman dari patah.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                    Bahan/material apa yang biasa digunakan?
-                                </button>
-                            </h2>
-                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted small">
-                                    Kami mengombinasikan **High-Density EVA Foam (Busa Ati)** untuk fleksibilitas & ringan, **3D Print (PLA+/PETG)** untuk detail presisi micro, pipa PVC / fiber rod sebagai tulang internal, serta cat akrilik / aerosol bermutu tinggi.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                                    Bagaimana sistem pembayaran pemesanan?
-                                </button>
-                            </h2>
-                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted small">
-                                    Sistem pembayaran yaitu **DP minimal 50%** saat kesepakatan desain awal dan mulai pembuatan. Pelunasan sisa 50% dilakukan setelah barang selesai dan lolos approval foto/video sebelum pengiriman.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT & FOOTER -->
-    <section id="kontak" class="py-5 bg-black bg-opacity-40">
-        <div class="container py-4">
-            <div class="bg-card-custom p-4 p-md-5 rounded-4 mb-5">
-                <div class="row gy-4">
-                    <div class="col-lg-6">
-                        <h3 class="font-heading fw-bold mb-3 text-white">Siap Mewujudkan Karakter Impianmu?</h3>
-                        <p class="text-subtext mb-4">Kunjungi workshop kami atau konsultasikan gambar sketsa karaktermu via WhatsApp secara gratis!</p>
-                        
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="feature-icon-box mb-0" style="width: 45px; height: 45px;">
-                                <i class="fa-solid fa-location-dot fs-6"></i>
-                            </div>
-                            <div>
-                                <span class="d-block text-cyan fw-semibold small">Alamat Workshop</span>
-                                <strong class="text-white fs-6">Jl. Kreatif Pop Culture No. 42, Bandung, Jawa Barat</strong>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="feature-icon-box mb-0" style="width: 45px; height: 45px;">
-                                <i class="fa-solid fa-clock fs-6"></i>
-                            </div>
-                            <div>
-                                <span class="d-block text-cyan fw-semibold small">Jam Operasional</span>
-                                <strong class="text-white fs-6">Senin - Sabtu (09.00 - 18.00 WIB)</strong>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="feature-icon-box mb-0" style="width: 45px; height: 45px;">
-                                <i class="fa-solid fa-envelope fs-6"></i>
-                            </div>
-                            <div>
-                                <span class="d-block text-cyan fw-semibold small">Email Support</span>
-                                <strong class="text-white fs-6">craft@coscraftstudio.id</strong>
-                            </div>
-                        </div>
-
-                        <div class="d-flex gap-2">
-                            <a href="#" class="btn btn-outline-secondary rounded-circle text-white" style="width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#" class="btn btn-outline-secondary rounded-circle text-white" style="width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="fa-brands fa-tiktok"></i></a>
-                            <a href="#" class="btn btn-outline-secondary rounded-circle text-white" style="width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="fa-brands fa-youtube"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <form id="contactQuickForm" onsubmit="handleFormSubmit(event)">
-                            <div class="mb-3">
-                                <label class="form-label form-label-custom">Nama Lengkap</label>
-                                <input type="text" class="form-control form-control-custom" id="contactName" placeholder="Contoh: Alex Suprapto" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label form-label-custom">Nama Karakter & Series Anime/Game</label>
-                                <input type="text" class="form-control form-control-custom" id="contactCharacter" placeholder="Contoh: Cloud Strife - Final Fantasy VII" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label form-label-custom">Pesan / Detail Permintaan</label>
-                                <textarea class="form-control form-control-custom" id="contactMessage" rows="3" placeholder="Tuliskan ukuran, batas tanggal event, atau catatan khusus..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-neon-cyan w-100 py-2 fs-6">
-                                <i class="fa-solid fa-paper-plane me-2"></i> Kirim Pesan Fast-Response
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Copyright -->
-            <div class="text-center text-muted small pt-3 border-top border-secondary border-opacity-25">
-                <p class="mb-0 text-subtext">&copy; 2026 CosCraft Studio UMKM Indonesia. All rights reserved.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/6281234567890?text=Halo%20CosCraft%20Studio,%20saya%20tertarik%20konsultasi%20prop/kostum!" class="float-wa" target="_blank" title="Chat via WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- Preview Image Modal -->
-    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-card-custom border-secondary text-white">
-                <div class="modal-header border-bottom border-secondary">
-                    <h5 class="modal-title font-heading" id="modalTitle">Preview Karya</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center p-0">
-                    <img id="modalImage" src="" class="img-fluid w-100" style="max-height: 500px; object-fit: contain;" alt="Preview" />
-                    <div class="p-3 text-start">
-                        <p id="modalDescription" class="text-muted small mb-0"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4 text-white" href="#">
+        <i class="fa-solid fa-wand-magic-sparkles me-2 text-info"></i>COSCRAFT<span class="text-info">.STUDIO</span>
+      </a>
+      <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portofolio">Portofolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#keunggulan">Keunggulan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#alur-order">Alur Order</a></li>
+          <li class="nav-item"><a class="nav-link" href="#kalkulator">Quick Quote</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        </ul>
+        <a href="#kontak" class="btn btn-info text-dark fw-semibold rounded-pill px-4 btn-sm">
+          <i class="fa-brands fa-whatsapp me-1"></i> TANYA CUSTOM
+        </a>
+      </div>
     </div>
+  </nav>
 
-    <!-- Bootstrap 5.3 JS Bundle CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <section id="beranda" class="hero-section d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+          <div class="badge bg-outline-info rounded-pill px-3 py-2 mb-3">
+            <i class="fa-solid fa-shield-cat me-2"></i>WORKSHOP CUSTOMLAB & PROP MAKER UMKM
+          </div>
+          <h1 class="display-4 fw-extrabold text-white mb-3 text-glow">
+            Bawa Karakter Impianmu Menjadi <span class="text-info">Nyata & Presisi</span>
+          </h1>
+          <p class="lead text-light-subtle mb-4">
+            Spesialis pembuatan prop senjata, armor High-Density EVA Foam, jahit kostum kustom, serta persewaan cosplay. Hasil garapan rapi, ringan, kokoh, dan event-ready.
+          </p>
+          <div class="d-flex flex-wrap gap-2 mb-4 text-white">
+            <span class="badge rounded-pill bg-dark border border-secondary px-3 py-2"><i class="fa-solid fa-check text-info me-1"></i> Custom Design 1:1</span>
+            <span class="badge rounded-pill bg-dark border border-secondary px-3 py-2"><i class="fa-solid fa-check text-info me-1"></i> EVA Foam & 3D Print</span>
+            <span class="badge rounded-pill bg-dark border border-secondary px-3 py-2"><i class="fa-solid fa-check text-info me-1"></i> Safety for Convention</span>
+          </div>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#portofolio" class="btn btn-info btn-lg fw-bold rounded-pill px-4 text-dark shadow-glow">Lihat Katalog Karya</a>
+            <a href="#kontak" class="btn btn-outline-light btn-lg rounded-pill px-4"><i class="fa-brands fa-whatsapp me-2"></i>Chat WA Studio</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-image-wrapper position-relative text-center">
+            <img src="https://i.pinimg.com/736x/da/1f/db/da1fdb654292c6a1f0a5baddcd70ad05.jpg" class="img-fluid rounded-4 shadow-lg hero-img" alt="Cosplay Hero">
+            <div class="glass-card position-absolute bottom-0 start-0 m-3 p-3 rounded-3 text-start">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-info text-dark rounded-circle p-2 fs-4"><i class="fa-solid fa-award"></i></div>
+                <div>
+                  <p class="mb-0 fw-bold text-white fs-6">50+ Karya Selesai</p>
+                  <p class="mb-0 text-white-50 small">Dipercaya cosplayer & event enthusiast.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- CUSTOM JAVASCRIPT LOGIC -->
-    <script>
-        // Quick Price Calculator Logic
-        function calculatePrice() {
-            const categoryElement = document.getElementById('categorySelect');
-            const selectedOption = categoryElement.options[categoryElement.selectedIndex];
-            const basePrice = parseFloat(selectedOption.getAttribute('data-base')) || 350000;
+  <section id="layanan" class="py-5">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h6 class="text-info fw-bold text-uppercase">Layanan Spesialis</h6>
+        <h2 class="fw-bold text-white display-6">Solusi Lengkap Kebutuhan Cosplay</h2>
+        <p class="text-light-subtle">Kami melayani pembuatan kustom dari nol, jahit kostum presisi, hingga perbaikan prop favoritmu.</p>
+      </div>
 
-            const detailMultiplier = parseFloat(document.getElementById('detailSelect').value) || 1.0;
-            const speedMultiplier = parseFloat(document.getElementById('speedSelect').value) || 1.0;
-            const sizeCm = parseFloat(document.getElementById('sizeInput').value) || 100;
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card service-card h-100 bg-dark-card border-0 text-white p-3">
+            <img src="https://cyber-craft.shop/cdn/shop/collections/mando_hd.webp?v=1779273837&width=1296" class="card-img-top rounded-3 mb-3" alt="Prop Crafting">
+            <div class="card-body p-0 d-flex flex-column">
+              <h5 class="card-title fw-bold text-info">Prop & Armor Crafting</h5>
+              <p class="card-text text-light-subtle small">Senjata, Scythe, Helm, & Armor set berbahan Busa ATI High-Density, 3D Print PLA+, dengan teknik weathering airbrush realitis.</p>
+              <a href="#kalkulator" class="btn btn-outline-info btn-sm mt-auto w-100 rounded-pill">Hitung Perkiraan Cost</a>
+            </div>
+          </div>
+        </div>
 
-            // Extra add-ons
-            let extras = 0;
-            if (document.getElementById('checkLED').checked) extras += 150000;
-            if (document.getElementById('checkDetachable').checked) extras += 100000;
+        <div class="col-md-6 col-lg-3">
+          <div class="card service-card h-100 bg-dark-card border-0 text-white p-3">
+            <img src="https://down-id.img.susercontent.com/file/773605917df0dfef8155604b2eb59b02" class="card-img-top rounded-3 mb-3" alt="Jahit Kostum">
+            <div class="card-body p-0 d-flex flex-column">
+              <h5 class="card-title fw-bold text-info">Jahit Kostum Custom</h5>
+              <p class="card-text text-light-subtle small">Jahit baju anime, game, atau original character sesuai ukuran badan secara presisi (custom sizing) menggunakan kain premium.</p>
+              <a href="#kontak" class="btn btn-outline-info btn-sm mt-auto w-100 rounded-pill">Konsultasi Ukuran</a>
+            </div>
+          </div>
+        </div>
 
-            // Size factor adjustment (base calculated around 100cm)
-            let sizeFactor = 1 + ((sizeCm - 100) / 200);
-            if (sizeFactor < 0.6) sizeFactor = 0.6; // minimum scale
+        <div class="col-md-6 col-lg-3">
+          <div class="card service-card h-100 bg-dark-card border-0 text-white p-3">
+            <img src="https://img.kwcdn.com/product/fancy/992f5e74-b5ae-4013-8ac2-79c3fbcd78c9.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp" class="card-img-top rounded-3 mb-3" alt="Persewaan & Wig">
+            <div class="card-body p-0 d-flex flex-column">
+              <h5 class="card-title fw-bold text-info">Persewaan & Wig Styling</h5>
+              <p class="card-text text-light-subtle small">Sewa kostum & prop ready stock hemat untuk event, serta jasa styling/crimping wig karakter spike/anime kompleks.</p>
+              <a href="#portofolio" class="btn btn-outline-info btn-sm mt-auto w-100 rounded-pill">Katalog Rent</a>
+            </div>
+          </div>
+        </div>
 
-            // Total calculation formula
-            let estimatedTotal = (basePrice * detailMultiplier * sizeFactor * speedMultiplier) + extras;
+        <div class="col-md-6 col-lg-3">
+          <div class="card service-card h-100 bg-dark-card border-0 text-white p-3">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyXXnTETWCFKFhgUDEfLWO-j_kOB17IWuZkfnV7Fm1Btd4ewgRNmdM-Jg&s=10" class="card-img-top rounded-3 mb-3" alt="Repair Prop">
+            <div class="card-body p-0 d-flex flex-column">
+              <h5 class="card-title fw-bold text-info">Repair & Repaint Prop</h5>
+              <p class="card-text text-light-subtle small">Restorasi prop kesayangan yang patah, lecet, atau pudar. Kami perbaiki dan repaint kembali kinclong seperti baru.</p>
+              <a href="#kontak" class="btn btn-outline-info btn-sm mt-auto w-100 rounded-pill">Konsultasi Repair</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portofolio" class="py-5 bg-darker">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-white display-6">Portofolio Kustom CosCraft</h2>
+        <p class="text-light-subtle">Hasil garapan workshop kami untuk berbagai kompetisi, event anime, & photoshoot.</p>
+        
+        <div class="d-flex justify-content-center flex-wrap gap-2 mt-4" id="portfolio-filters">
+          <button class="btn btn-info btn-sm rounded-pill px-3 active" data-filter="all">Semua Karya</button>
+          <button class="btn btn-outline-secondary text-white btn-sm rounded-pill px-3" data-filter="prop">Prop Senjata</button>
+          <button class="btn btn-outline-secondary text-white btn-sm rounded-pill px-3" data-filter="armor">Armor Set</button>
+          <button class="btn btn-outline-secondary text-white btn-sm rounded-pill px-3" data-filter="kostum">Jahit Kostum</button>
+          <button class="btn btn-outline-secondary text-white btn-sm rounded-pill px-3" data-filter="helm">Helm & Masker</button>
+        </div>
+      </div>
+
+      <div class="row g-4" id="portfolio-grid">
+        <div class="col-md-6 col-lg-4 portfolio-item prop">
+          <div class="portfolio-card bg-dark-card rounded-3 overflow-hidden text-white">
+            <div class="portfolio-img-box">
+              <img src="https://i.pinimg.com/736x/93/41/c6/9341c61dddf4450646c662dd62f90033.jpg" class="img-fluid" alt="Pedang Katana LED">
+            </div>
+            <div class="p-3">
+              <span class="badge bg-danger mb-2">EVA Foam + LED</span>
+              <h5 class="fw-bold mb-1">Cybernetic Greatsword</h5>
+              <p class="text-light-subtle small mb-0">Panjang 140cm, dapat dibongkar pasang (knockdown) & sistem lampu LED interaktif.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 portfolio-item helm">
+          <div class="portfolio-card bg-dark-card rounded-3 overflow-hidden text-white">
+            <div class="portfolio-img-box">
+              <img src="https://www.hypebrother.com/images/product-mecha-helmet-t1.jpg" class="img-fluid" alt="Helm Mecha">
+            </div>
+            <div class="p-3">
+              <span class="badge bg-info text-dark mb-2">3D Print + Visor</span>
+              <h5 class="fw-bold mb-1">Mecha Pilot Helmet</h5>
+              <p class="text-light-subtle small mb-0">Finishing metallic gloss, ventilasi pernapasan ganda, dan sirkulasi udara nyaman.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 portfolio-item armor">
+          <div class="portfolio-card bg-dark-card rounded-3 overflow-hidden text-white">
+            <div class="portfolio-img-box">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ75fvSN8fq9NMSo7K16v5AfO78tA3RuVhKzs6lo5zrwDICtUARWFXUSblo&s=10" class="img-fluid" alt="Chest Armor">
+            </div>
+            <div class="p-3">
+              <span class="badge bg-warning text-dark mb-2">Full Set Busa ATI</span>
+              <h5 class="fw-bold mb-1">Dark Knight Chest & Pauldron</h5>
+              <p class="text-light-subtle small mb-0">Tekstur battle damage realistis, sangat ringan dipakai seharian saat cosplay walk.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 portfolio-item prop">
+          <div class="portfolio-card bg-dark-card rounded-3 overflow-hidden text-white">
+            <div class="portfolio-img-box">
+              <img src="https://lonestarcosplay.com/cdn/shop/files/il_fullxfull.6766730967_jsyu.jpg?v=1744867760&width=667" class="img-fluid" alt="Scythe Custom">
+            </div>
+            <div class="p-3">
+              <span class="badge bg-warning text-dark mb-2">Knockdown Detachable</span>
+              <h5 class="fw-bold mb-1">Reaper Scythe 200cm</h5>
+              <p class="text-light-subtle small mb-0">Bisa dilepas jadi 3 bagian agar muat masuk koper/bagasi mobil saat traveling luar kota.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 portfolio-item kostum">
+          <div class="portfolio-card bg-dark-card rounded-3 overflow-hidden text-white">
+            <div class="portfolio-img-box">
+              <img src="https://i.ebayimg.com/images/g/DKUAAOSwzaJX43uA/s-l1200.jpg" class="img-fluid" alt="Baju Anime Tailor">
+            </div>
+            <div class="p-3">
+              <span class="badge bg-primary mb-2">Jahit Tailor</span>
+              <h5 class="fw-bold mb-1">Fantasy Kimono & Haori</h5>
+              <p class="text-light-subtle small mb-0">Detail bordir emas rapi, bahan katun furing adem tidak panas saat indoor/outdoor.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 portfolio-item helm">
+          <div class="portfolio-card bg-dark-card rounded-3 overflow-hidden text-white">
+            <div class="portfolio-img-box">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIqICHeqXi0wRBwJW5srNV5C_Yek_8P06XASLYTQBggUid34YbWz3BXuM&s=10" class="img-fluid" alt="Masker Oni">
+            </div>
+            <div class="p-3">
+              <span class="badge bg-success mb-2">Resin Cast</span>
+              <h5 class="fw-bold mb-1">Cyberpunk Oni Mask</h5>
+              <p class="text-light-subtle small mb-0">Masker tradisional dikombinasikan aksen pipa & kabel futuristik gaya sci-fi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="keunggulan" class="py-5">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h6 class="text-info fw-bold text-uppercase">Keunggulan Workshop</h6>
+        <h2 class="fw-bold text-white display-6">Mengapa Memilih CosCraft Studio?</h2>
+      </div>
+      <div class="row g-4 text-white">
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-dark-card h-100">
+            <div class="text-info fs-1 mb-3"><i class="fa-solid fa-bullseye"></i></div>
+            <h5 class="fw-bold">Presisi High-Grade</h5>
+            <p class="text-light-subtle small mb-0">Riset proporsi 1:1 dari reference sheet official anime/game agar karakter tampil identik.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-dark-card h-100">
+            <div class="text-info fs-1 mb-3"><i class="fa-solid fa-feather-pointed"></i></div>
+            <h5 class="fw-bold">Bahan Ringan & Kokoh</h5>
+            <p class="text-light-subtle small mb-0">Kombinasi High-Density EVA Foam & tulang PVC agar tidak pegal dipakai saat event seharian.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-dark-card h-100">
+            <div class="text-info fs-1 mb-3"><i class="fa-solid fa-box-archive"></i></div>
+            <h5 class="fw-bold">Packing Aman Kirim LK</h5>
+            <p class="text-light-subtle small mb-0">Pengiriman luar kota/luar pulau menggunakan bubble wrap ganda, kardus tebal, atau peti kayu aman.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-dark-card h-100">
+            <div class="text-info fs-1 mb-3"><i class="fa-solid fa-comments"></i></div>
+            <h5 class="fw-bold">Free Konsultasi Design</h5>
+            <p class="text-light-subtle small mb-0">Diskusi gratis pemilihan bahan, skala ukuran badan, hingga menyesuaikan budget calon pemesan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="alur-order" class="py-5 bg-darker">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h6 class="text-info fw-bold text-uppercase">Prosedur Kerja</h6>
+        <h2 class="fw-bold text-white display-6">4 Langkah Mudah Pesan Custom</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card bg-dark-card text-white p-4 rounded-4 text-center h-100">
+            <div class="step-number bg-info text-dark fw-bold rounded-circle mx-auto mb-3">1</div>
+            <h5 class="fw-bold">Konsultasi & Quote</h5>
+            <p class="text-light-subtle small">Kirim gambar referensi karakter, tentukan ukuran & deadline event untuk hitung estimasi harga.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card bg-dark-card text-white p-4 rounded-4 text-center h-100">
+            <div class="step-number bg-info text-dark fw-bold rounded-circle mx-auto mb-3">2</div>
+            <h5 class="fw-bold">DP & Prototyping</h5>
+            <p class="text-light-subtle small">Pembayaran DP 50% untuk mulai pembelian material, pembuatan pola (patterning), & pengerjaan.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card bg-dark-card text-white p-4 rounded-4 text-center h-100">
+            <div class="step-number bg-info text-dark fw-bold rounded-circle mx-auto mb-3">3</div>
+            <h5 class="fw-bold">Progress & Finishing</h5>
+            <p class="text-light-subtle small">Menerima update foto/video berkala proses crafting, dilanjutkan painting & detail akhir.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card bg-dark-card text-white p-4 rounded-4 text-center h-100">
+            <div class="step-number bg-info text-dark fw-bold rounded-circle mx-auto mb-3">4</div>
+            <h5 class="fw-bold">Pelunasan & Kirim</h5>
+            <p class="text-light-subtle small">Setelah lolos approval final via foto/video, pelunasan dilakukan lalu barang siap dikirim.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kalkulator" class="py-5">
+    <div class="container py-4">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-5 text-white">
+          <h6 class="text-info fw-bold text-uppercase">Kalkulator Quick Quote</h6>
+          <h2 class="fw-bold display-6 mb-3">Hitung Perkiraan Biaya Prop Kamu!</h2>
+          <p class="text-light-subtle mb-4">Fitur kalkulator interaktif untuk memberikan gambaran kisaran biaya pengerjaan kustom. Hasil kalkulasi bisa langsung kamu teruskan ke WhatsApp kami untuk didiskusikan lebih detail.</p>
+          <ul class="list-unstyled text-light-subtle">
+            <li class="mb-2"><i class="fa-solid fa-circle-check text-info me-2"></i> Transparansi estimasi biaya awal</li>
+            <li class="mb-2"><i class="fa-solid fa-circle-check text-info me-2"></i> Pilihan tingkat kerumitan fleksibel</li>
+            <li class="mb-2"><i class="fa-solid fa-circle-check text-info me-2"></i> Bebas konsultasi lanjutan tanpa komitmen</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="card bg-dark-card border-info-subtle p-4 rounded-4 text-white">
+            <h4 class="fw-bold text-center mb-4 text-info"><i class="fa-solid fa-sliders me-2"></i>Estimator Cost Custom</h4>
+            <form id="quote-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label text-white fw-medium small">JENIS ORDER / CATEGORY</label>
+                  <select class="form-select bg-dark text-white border-secondary" id="calc-category">
+                    <option value="150000">Senjata / Weapon (Pedang, Bow, Wand)</option>
+                    <option value="250000">Armor Set (Pauldron, Chestplate, Leg)</option>
+                    <option value="200000">Helm / Headpiece / Masker Kustom</option>
+                    <option value="300000">Jahit Baju Set Karakter Complex</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label text-white fw-medium small">TINGKAT KERUMITAN DETAIL</label>
+                  <select class="form-select bg-dark text-white border-secondary" id="calc-complexity">
+                    <option value="1">Simpel (Pola dasar, warna solid 1-2)</option>
+                    <option value="1.5" selected>Sedang (Weathering paint, banyak layer)</option>
+                    <option value="2.2">Sangat Rumit (Banyak ukiran, mech, gradient)</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label text-white fw-medium small">ESTIMASI UKURAN (CM)</label>
+                  <input type="number" class="form-control bg-dark text-white border-secondary" id="calc-size" value="100" placeholder="Contoh: 120">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label text-white fw-medium small">DURASI PENGERJAAN</label>
+                  <select class="form-select bg-dark text-white border-secondary" id="calc-rush">
+                    <option value="1">Reguler (2 - 3 Minggu)</option>
+                    <option value="1.3">Express Event (7 - 10 Hari)</option>
+                  </select>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label text-white fw-medium small d-block">ADD-ON FITUR (OPTIONAL)</label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="addon-led" value="150000">
+                    <label class="form-check-label text-white small" for="addon-led">Lampu LED (+Rp 150rb)</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="addon-knockdown" value="100000">
+                    <label class="form-check-label text-white small" for="addon-knockdown">Bisa Bongkar Pasang / Knockdown (+Rp 100rb)</label>
+                  </div>
+                </div>
+
+                <div class="col-12 mt-4">
+                  <div class="p-3 bg-dark rounded-3 border border-secondary text-center">
+                    <span class="text-light-subtle small d-block">ESTIMASI BIAYA AWAL</span>
+                    <h3 class="fw-bold text-info mb-0" id="calc-result">Rp 0</h3>
+                    <small class="text-white-50 fs-xs">*Harga final dikonfirmasi setelah analisis gambar referensi.</small>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="button" class="btn btn-info fw-bold w-100 rounded-pill py-2 text-dark" id="btn-send-quote">
+                    <i class="fa-brands fa-whatsapp me-2"></i>Kirim Spesifikasi Ini ke WhatsApp
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-5 bg-darker">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-white display-6">Apa Kata Para Cosplayer?</h2>
+      </div>
+
+      <div id="carouselTesti" class="carousel slide col-lg-8 mx-auto mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active text-center">
+            <div class="p-4 bg-dark-card rounded-4 text-white">
+              <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p class="fst-italic text-light-subtle">"Prop pedang pesanan saya detail banget weathering paint-nya! Pas dipakai event Comic Con di Jakarta sama sekali gak berat. Mantap banget CosCraft Studio!"</p>
+              <h6 class="fw-bold text-info mb-0">Rian "Kuro" D.</h6>
+              <small class="text-white-50">Cosplayer - Surabaya</small>
+            </div>
+          </div>
+          <div class="carousel-item text-center">
+            <div class="p-4 bg-dark-card rounded-4 text-white">
+              <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p class="fst-italic text-light-subtle">"Jahitan baju cosplay Genshin aku sangat fit di badan. Bahannya gak bikin gatal/panas padahal pakai seharian di venue outdoor."</p>
+              <h6 class="fw-bold text-info mb-0">AEMILIA_cos</h6>
+              <small class="text-white-50">Content Creator - Bandung</small>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTesti" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselTesti" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-lg-4 text-white">
+          <h6 class="text-info fw-bold text-uppercase">Pertanyaan Umum</h6>
+          <h3 class="fw-bold">Frequently Asked Questions</h3>
+          <p class="text-light-subtle">Punya pertanyaan seputar durasi pengerjaan, keamanan pengiriman, atau mekanisme pembayaran? Temukan jawabannya di sini.</p>
+          <a href="#kontak" class="btn btn-outline-info rounded-pill px-4 btn-sm"><i class="fa-solid fa-headset me-2"></i>Tanya CS Kami</a>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="accordion custom-accordion" id="faqAccordion">
+            <div class="accordion-item bg-dark-card text-white border-0 mb-2 rounded-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-dark-card text-info fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                  Berapa lama estimasi pengerjaan custom prop/kostum?
+                </button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-light-subtle small">
+                  Waktu pengerjaan standar berkisar antara 2 hingga 3 minggu tergantung antrean workshop dan tingkat kerumitan desain. Kami juga menyediakan opsi **Express Service** untuk selesai dalam 7–10 hari untuk event mendadak.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item bg-dark-card text-white border-0 mb-2 rounded-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-dark-card text-info fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                  Apakah prop aman dikirim ke luar kota / luar pulau?
+                </button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-light-subtle small">
+                  Sangat aman. Kami menggunakan sistem packing berlapis (bubble wrap, stereofoam, & kardus tebal). Untuk prop berukuran raksasa di atas 1.5 meter, kami menyarankan fitur sistem **Knockdown (Bisa dibongkar pasang)**.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item bg-dark-card text-white border-0 mb-2 rounded-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-dark-card text-info fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                  Bahan/material apa yang biasa digunakan?
+                </button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-light-subtle small">
+                  Untuk prop & armor kami utamanya memakai High-Density EVA Foam (Busa ATI super keras), pipa PVC/pipa alumunium untuk rangka internal, serta 3D Printing PLA+ untuk detail aksesoris kecil.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item bg-dark-card text-white border-0 mb-2 rounded-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-dark-card text-info fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                  Bagaimana sistem pembayaran pemesanan?
+                </button>
+              </h2>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-light-subtle small">
+                  Pembayaran dilakukan via Down Payment (DP) sebesar 50% diawal untuk pembeliaan bahan dasar, dan pelunasan 50% dilakukan saat barang siap kirim setelah kamu melakukan cek foto/video hasil akhir.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontak" class="py-5">
+    <div class="container py-4">
+      <div class="bg-dark-card rounded-4 p-4 p-md-5 border border-info-subtle text-white shadow-lg">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-6">
+            <h2 class="fw-bold text-white mb-3">Siap Mewujudkan Karakter Impianmu?</h2>
+            <p class="text-light-subtle mb-4">Kunjungi workshop kami atau konsultasikan gambar sketsa karaktermu via WhatsApp secara gratis!</p>
             
-            // Rounding to nearest 10,000 IDR
-            estimatedTotal = Math.round(estimatedTotal / 10000) * 10000;
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="bg-dark p-3 rounded-3 text-info fs-5"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <span class="d-block text-info small fw-bold">Alamat Workshop</span>
+                <span class="fw-medium text-white">Jl. Kreatif Pop Culture No. 42, Bandung, Jawa Barat</span>
+              </div>
+            </div>
 
-            // Display in IDR Format
-            document.getElementById('totalPriceDisplay').innerText = 'Rp ' + estimatedTotal.toLocaleString('id-ID');
-        }
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="bg-dark p-3 rounded-3 text-info fs-5"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <span class="d-block text-info small fw-bold">Jam Operasional</span>
+                <span class="fw-medium text-white">Senin - Sabtu (09.00 - 18.00 WIB)</span>
+              </div>
+            </div>
 
-        // Send Quote Result to WhatsApp Template
-        function sendQuoteToWA() {
-            const categoryText = document.getElementById('categorySelect').options[document.getElementById('categorySelect').selectedIndex].text;
-            const detailText = document.getElementById('detailSelect').options[document.getElementById('detailSelect').selectedIndex].text;
-            const sizeCm = document.getElementById('sizeInput').value;
-            const speedText = document.getElementById('speedSelect').options[document.getElementById('speedSelect').selectedIndex].text;
-            const estimatedPrice = document.getElementById('totalPriceDisplay').innerText;
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="bg-dark p-3 rounded-3 text-info fs-5"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <span class="d-block text-info small fw-bold">Email Support</span>
+                <span class="fw-medium text-white">craft@coscraftstudio.id</span>
+              </div>
+            </div>
 
-            let extraList = [];
-            if (document.getElementById('checkLED').checked) extraList.push("Lampu LED");
-            if (document.getElementById('checkDetachable').checked) extraList.push("Knockdown/Bongkar Pasang");
-            let extrasText = extraList.length > 0 ? extraList.join(", ") : "Tidak ada";
+            <div class="d-flex gap-2">
+              <a href="#" class="btn btn-outline-light rounded-circle"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="btn btn-outline-light rounded-circle"><i class="fa-brands fa-tiktok"></i></a>
+              <a href="#" class="btn btn-outline-light rounded-circle"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
 
-            const waMessage = `Halo CosCraft Studio, saya ingin konsultasi order custom berdasarkan kalkulator web:%0A%0A` +
-                `- *Jenis Order*: ${categoryText}%0A` +
-                `- *Detail*: ${detailText}%0A` +
-                `- *Ukuran*: ${sizeCm} cm%0A` +
-                `- *Durasi*: ${speedText}%0A` +
-                `- *Fitur Tambahan*: ${extrasText}%0A` +
-                `- *Estimasi Harga Web*: ${estimatedPrice}%0A%0A` +
-                `Mohon konfirmasi kelanjutan dan pengiriman contoh gambar referensi. Terima kasih!`;
+          <div class="col-lg-6">
+            <form id="contact-form">
+              <div class="mb-3">
+                <label class="form-label text-white fw-bold small">Nama Lengkap</label>
+                <input type="text" class="form-control bg-dark text-white border-secondary" id="contact-name" placeholder="Contoh: Alex Suprapto" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-white fw-bold small">Nama Karakter & Series Anime/Game</label>
+                <input type="text" class="form-control bg-dark text-white border-secondary" id="contact-char" placeholder="Contoh: Cloud Strife - Final Fantasy VII" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-white fw-bold small">Pesan / Detail Permintaan</label>
+                <textarea class="form-control bg-dark text-white border-secondary" id="contact-msg" rows="4" placeholder="Tuliskan ukuran, batas tanggal event, atau catatan khusus..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-info text-dark fw-bold w-100 rounded-pill py-2">
+                <i class="fa-paper-plane fa-solid me-2"></i>Kirim Pesan Fast-Response
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            window.open(`https://wa.me/6281234567890?text=${waMessage}`, '_blank');
-        }
+  <footer class="py-4 bg-black border-top border-secondary-subtle text-center text-light-subtle small">
+    <div class="container">
+      <p class="mb-0">&copy; 2026 CosCraft Studio UMKM Indonesia. All rights reserved.</p>
+    </div>
+  </footer>
 
-        // Portfolio Gallery Filter Logic
-        function filterGallery(category, buttonElement) {
-            const buttons = document.querySelectorAll('.portfolio-filter .btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            buttonElement.classList.add('active');
+  <a href="https://wa.me/6281234567890" target="_blank" class="floating-wa shadow-lg d-flex align-items-center justify-content-center text-white">
+    <i class="fa-brands fa-whatsapp fs-3"></i>
+  </a>
 
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // Modal Preview Image
-        function openPreviewModal(imageSrc, title, description) {
-            document.getElementById('modalImage').src = imageSrc;
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDescription').innerText = description;
-            const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
-            previewModal.show();
-        }
-
-        // Quick Contact Form Handler
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('contactName').value;
-            const character = document.getElementById('contactCharacter').value;
-            const message = document.getElementById('contactMessage').value;
-
-            const waMessage = `Halo CosCraft Studio, saya ${name}.%0A` +
-                `Saya mau konsultasi pemesanan kustom untuk karakter *${character}*.%0A%0A` +
-                `Catatan/Detail:%0A${message}`;
-
-            window.open(`https://wa.me/6281234567890?text=${waMessage}`, '_blank');
-        }
-
-        // Initialize default calculation on page load
-        window.onload = function() {
-            calculatePrice();
-        };
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
